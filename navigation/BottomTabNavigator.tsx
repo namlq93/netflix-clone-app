@@ -4,7 +4,7 @@ import * as React from "react";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import TabOneScreen from "../screens/TabOneScreen";
+import HomeScreen from "../screens/HomeScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import { RootTabParamList, HomeParamList } from "../types";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -71,7 +71,7 @@ const HomeStack = createNativeStackNavigator<HomeParamList>();
 function TabOneNavigator () {
   return (
     <HomeStack.Navigator>
-      <HomeStack.Screen name="HomeScreen" component={TabOneScreen} options={{headerShown: false}} />
+      <HomeStack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false}} />
     </HomeStack.Navigator>
   )
 }
