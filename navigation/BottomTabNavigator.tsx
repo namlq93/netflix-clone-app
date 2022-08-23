@@ -5,6 +5,7 @@ import * as React from "react";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import HomeScreen from "../screens/HomeScreen";
+import MovieDetailsScreen from "../screens/MovieDetailsScreen.tsx";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import { RootTabParamList, HomeParamList } from "../types";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -32,7 +33,7 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <AntDesign name="home" size={24} color={color} />
           ),
-          headerShown: false
+          headerShown: false,
         }}
       />
       <BottomTab.Screen
@@ -68,10 +69,19 @@ export default function BottomTabNavigator() {
 
 const HomeStack = createNativeStackNavigator<HomeParamList>();
 
-function TabOneNavigator () {
+function TabOneNavigator() {
   return (
     <HomeStack.Navigator>
-      <HomeStack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false}} />
+      <HomeStack.Screen
+        name="MovieDetailsScreen"
+        component={MovieDetailsScreen}
+        options={{ headerTitle: "" }}
+      />
+      <HomeStack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{ headerShown: false }}
+      />
     </HomeStack.Navigator>
-  )
+  );
 }

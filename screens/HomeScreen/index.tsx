@@ -1,4 +1,4 @@
-import { FlatList, Image } from "react-native";
+import { FlatList } from "react-native";
 
 import { View } from "../../components/Themed";
 import { RootTabScreenProps } from "../../types";
