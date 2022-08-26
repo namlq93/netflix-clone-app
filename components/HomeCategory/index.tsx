@@ -1,29 +1,47 @@
-import { FlatList, Image } from "react-native";
+import { FlatList, Image, Pressable } from "react-native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
-import { Text, View } from "../../components/Themed";
+import { Text } from "../../components/Themed";
 import styles from "./styles";
 
-interface homeCategoryProps {
+type Movie = {
+  id: string;
+  poster: string;
+};
+interface HomeCategoryProps {
   category: {
     id: string;
     title: string;
-    movies: { id: string; poster: string }[];
+    movies: Movie[];
   };
+  // thằng navigation này ở component con không phải trong component screen nên phải truyền từ thằng screen sang
+  // navigation: NavigationProp<any, any>;
 }
 
-export default function HomeCategory({ category }: homeCategoryProps) {
+export default function HomeCategory({
+  category,
+}: // navigation,
+HomeCategoryProps) {
+  // cách khác không cần truyền props, sử dụng useNavigation
+  const navigation = useNavigation();
+  const handlePressMovie = (movie: Movie) => {
+    navigation.navigate("MovieDetailsScreen", { id: movie.id });
+  };
+
   return (
     <>
       <Text style={styles.title}>{category.title}</Text>
       <FlatList
         data={category.movies}
         renderItem={({ item }) => (
-          <Image
-            style={styles.image}
-            source={{
-              uri: item.poster,
-            }}
-          />
+          <Pressable onPress={() => handlePressMovie(item)}>
+            <Image
+              style={styles.image}
+              source={{
+                uri: item.poster,
+              }}
+            />
+          </Pressable>
         )}
         horizontal
       />

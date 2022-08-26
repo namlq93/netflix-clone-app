@@ -13,21 +13,25 @@ import movie from "../../assets/data/movie";
 import { View, Text } from "../../components/Themed";
 import EpisodeItem from "../../components/EpisodeItem";
 import { Picker } from "@react-native-picker/picker";
+import VideoPlayer from "../../components/VideoPlayer";
 
 const firstSeason = movie.seasons.items[0];
 const firstEpisode = firstSeason.episodes.items[0];
 
 function MovieDetailScreen() {
   const [currentSeason, setCurrentSeason] = useState(firstSeason);
+  const [currentEpisode, setCurrentEpisode] = useState(firstEpisode);
   const seasonNames = movie.seasons.items.map((season) => season.name);
 
   return (
-    <FlatList
-      data={currentSeason.episodes.items}
-      renderItem={({ item }) => <EpisodeItem episode={item} />}
-      ListHeaderComponent={
-        <View>
-          <Image style={styles.image} source={{ uri: firstEpisode.poster }} />
+    <View style={{ flex: 1 }}>
+      <VideoPlayer episode={currentEpisode} />
+      <FlatList
+        data={currentSeason.episodes.items}
+        renderItem={({ item }) => (
+          <EpisodeItem episode={item} onPress={setCurrentEpisode} />
+        )}
+        ListHeaderComponent={
           <View style={{ padding: 12 }}>
             <Text style={styles.title}>{movie.title}</Text>
             <View style={{ flexDirection: "row" }}>
@@ -87,6 +91,12 @@ function MovieDetailScreen() {
                 marginTop: 10,
                 width: 130,
               }}
+              itemStyle={{
+                backgroundColor: "grey",
+                color: "blue",
+                fontFamily: "Ebrima",
+                fontSize: 17,
+              }}
               dropdownIconColor={"white"}
             >
               {seasonNames.map((seasonName) => (
@@ -98,9 +108,9 @@ function MovieDetailScreen() {
               ))}
             </Picker>
           </View>
-        </View>
-      }
-    />
+        }
+      />
+    </View>
   );
 }
 
